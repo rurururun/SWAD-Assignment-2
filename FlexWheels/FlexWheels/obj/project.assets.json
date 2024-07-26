@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Imp\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "projectUniqueName": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
       "projectName": "FlexWheels",
-      "projectPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Imp\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "projectPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
       "packagesPath": "C:\\Users\\guohe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Imp\\FlexWheels\\FlexWheels\\obj\\",
+      "outputPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
