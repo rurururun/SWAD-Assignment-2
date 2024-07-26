@@ -16,6 +16,8 @@ namespace FlexWheels
         private string licensePlateNumber;
         private string insurance;
         private DateTime inspectionDate;
+        private bool rentalStatus;
+        private List<Booking> bookingList;
 
         public string Make
         {
@@ -65,7 +67,19 @@ namespace FlexWheels
             set { inspectionDate = value; }
         }
 
-        public Vehicle(string mk, string md, DateTime y, int mge, string p, string lpn, string i, DateTime id)
+        public bool RentalStatus
+        {
+            get { return rentalStatus; }
+            set { rentalStatus = value; }
+        }
+
+        public List<Booking> BookingList
+        {
+            get { return bookingList; }
+            set { bookingList = value; }
+        }
+
+        public Vehicle(string mk, string md, DateTime y, int mge, string p, string lpn, string i, DateTime id, bool rs, List<Booking> bl)
         {
             make = mk;
             model = md;
@@ -75,11 +89,13 @@ namespace FlexWheels
             licensePlateNumber = lpn;
             insurance = i;
             inspectionDate = id;
+            rentalStatus = rs;
+            bookingList = bl;
         }
 
         public override string ToString()
         {
-            return "Make: " + Make + "\nModel: " + Model + "\nYear: " + Year.Year + "\nMileage: " + Mileage + "\nPhotos: " + Photos + "\nLicense Plate Number: " + LicensePlateNumber + "\nInsurance: " + Insurance + "\nInspection Date: " + InspectionDate.Day + "/" + InspectionDate.Month + "/" + InspectionDate.Year;
+            return "Make: " + Make + "\nModel: " + Model + "\nYear: " + Year.Year + "\nMileage: " + Mileage + "\nPhotos: " + Photos + "\nLicense Plate Number: " + LicensePlateNumber + "\nInsurance: " + Insurance + "\nInspection Date: " + InspectionDate.Day + "/" + InspectionDate.Month + "/" + InspectionDate.Year + "\nRental Status: " + (RentalStatus ? "Rented" : "Not Rented") + "\nNumber Of Bookings: " + BookingList.Count;
         }
     }
 }
