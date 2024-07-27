@@ -72,6 +72,8 @@ namespace FlexWheels
             set { bookings= value; }
         }
 
+        public Renter() { }
+
         public Renter(DateTime dob, string dln, DateTime dlexp, string ic, string addr, bool valid, DateTime validDate, int id, List<Booking> b)
         {
             dateOfBirth = dob;
@@ -83,6 +85,45 @@ namespace FlexWheels
             validationDate = validDate;
             renterId = id;
             bookings = b;
+        }
+
+        public List<Vehicle> GetListOfVehicles()
+        {
+            List<Vehicle> vehicles = new List<Vehicle>();
+            for (int i = 0; i < Bookings.Count; i++)
+            {
+                vehicles.Add(Bookings[i].V);
+            }
+            return vehicles;
+        }
+
+        public Booking GetBookingByPosition (int position)
+        {
+            return Bookings[position];
+        }
+
+        public Booking GetBookingById(int id)
+        {
+            Booking booking = new Booking();
+            for (int i = 0; i < Bookings.Count; i++)
+            {
+                if (Bookings[i].BookingId == id)
+                {
+                    booking = Bookings[i];
+                }
+            }
+            return booking;
+        }
+
+        public void UpdateBooking(int id, Booking b)
+        {
+            for (int i = 0; i < Bookings.Count; i++)
+            {
+                if (Bookings[i].BookingId == id)
+                {
+                    Bookings[i] = b;
+                }
+            }
         }
 
         public override string ToString()
