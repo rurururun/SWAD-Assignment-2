@@ -15,6 +15,7 @@ namespace FlexWheels
         private string pickupLocation;
         private string returnMethod;
         private string returnLocation;
+        private int bookingId;
         private Vehicle v;
 
         public DateTime StartDate
@@ -59,13 +60,21 @@ namespace FlexWheels
             set { returnLocation = value; }
         }
 
+        public int BookingId
+        {
+            get { return bookingId; }
+            set { bookingId = value; }
+        }
+
         public Vehicle V
         {
             get { return v; }
             set { v = value; }
         }
 
-        public Booking(DateTime sd, DateTime ed, int rp, string pm, string pl, string rm, string rl, Vehicle vehicle)
+        public Booking() { }
+
+        public Booking(DateTime sd, DateTime ed, int rp, string pm, string pl, string rm, string rl, int b, Vehicle vehicle)
         {
             startDate = sd;
             endDate = ed;
@@ -74,12 +83,13 @@ namespace FlexWheels
             pickupLocation = pl;
             returnMethod = rm;
             returnLocation = rl;
+            bookingId = b;
             v = vehicle;
         }
 
         public override string ToString()
         {
-            return "Start Date: " + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year + "\nEnd Date: " + EndDate.Day + "/" + EndDate.Month + "/" + EndDate.Year + "\nRental Period: " + RentalPeriod + "h\nPickup Method: " + PickupMethod + "\nPickup Location: " + PickupLocation + "\nReturn Method: " + ReturnMethod + "\nReturn Location: " + ReturnLocation + "\n" + V.ToString();
+            return "===========================================" + "\n------------- Booking Details -------------" + "\n===========================================" + "\nStart Date: " + StartDate.Day + "/" + StartDate.Month + "/" + StartDate.Year + "\nEnd Date: " + EndDate.Day + "/" + EndDate.Month + "/" + EndDate.Year + "\nRental Period: " + RentalPeriod + "h\nPickup Method: " + PickupMethod + "\nPickup Location: " + PickupLocation + "\nReturn Method: " + ReturnMethod + "\nReturn Location: " + ReturnLocation + "\nBooking ID: " + BookingId + "\n===========================================" + "\n------------- Vehicle Details -------------" + "\n===========================================\n" + V.ToString();
         }
     }
 }
