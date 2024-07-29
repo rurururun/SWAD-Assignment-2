@@ -87,7 +87,7 @@ namespace FlexWheels
             bookings = b;
         }
 
-        public List<Vehicle> GetListOfVehicles()
+/*        public List<Vehicle> GetListOfVehicles()
         {
             List<Vehicle> vehicles = new List<Vehicle>();
             for (int i = 0; i < Bookings.Count; i++)
@@ -124,7 +124,7 @@ namespace FlexWheels
                     Bookings[i] = b;
                 }
             }
-        }
+        }*/
 
         public override string ToString()
         {
