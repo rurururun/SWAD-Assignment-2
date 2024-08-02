@@ -8,23 +8,19 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\guohe\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\avant\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "projectUniqueName": "C:\\Users\\avant\\source\\repos\\SWAD\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
       "projectName": "FlexWheels",
-      "projectPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
-      "packagesPath": "C:\\Users\\guohe\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\obj\\",
+      "projectPath": "C:\\Users\\avant\\source\\repos\\SWAD\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "packagesPath": "C:\\Users\\avant\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\avant\\source\\repos\\SWAD\\FlexWheels\\FlexWheels\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\guohe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\avant\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -65,7 +61,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

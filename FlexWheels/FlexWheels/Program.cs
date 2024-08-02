@@ -51,6 +51,8 @@ namespace FlexWheels
 
             // Create 3 profiles, 1 Car Owner, 1 Renter, and 1 Admin (To be confirmed)
 
+            Console.WriteLine("hi-avanti");
+
             while (true)
             {
                 MainMenu();
