@@ -8,24 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\minpy\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\guohe\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\SWAD_Assg2\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "projectUniqueName": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
       "projectName": "FlexWheels",
-      "projectPath": "C:\\SWAD_Assg2\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
-      "packagesPath": "C:\\Users\\minpy\\.nuget\\packages\\",
-      "outputPath": "C:\\SWAD_Assg2\\FlexWheels\\FlexWheels\\obj\\",
+      "projectPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+      "packagesPath": "C:\\Users\\guohe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\guohe\\Desktop\\School Stuff\\Y4_Sem_1\\SWAD\\Assignment 2\\Assignment 2 Implementation\\FlexWheels\\FlexWheels\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\minpy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\guohe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -66,7 +65,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
