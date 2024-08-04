@@ -11,7 +11,7 @@ namespace FlexWheels
         private string make;
         private string model;
         private string year;
-        private int mileage; // In terms of KM or Miles?
+        private int mileage;
         private string[] photos;
         private string licensePlateNumber;
         private string[] insurance;
