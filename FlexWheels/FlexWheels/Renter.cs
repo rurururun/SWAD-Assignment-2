@@ -87,45 +87,6 @@ namespace FlexWheels
             bookings = b;
         }
 
-/*        public List<Vehicle> GetListOfVehicles()
-        {
-            List<Vehicle> vehicles = new List<Vehicle>();
-            for (int i = 0; i < Bookings.Count; i++)
-            {
-                vehicles.Add(Bookings[i].V);
-            }
-            return vehicles;
-        }
-
-        public Booking GetBookingByPosition (int position)
-        {
-            return Bookings[position];
-        }
-
-        public Booking GetBookingById(int id)
-        {
-            Booking booking = new Booking();
-            for (int i = 0; i < Bookings.Count; i++)
-            {
-                if (Bookings[i].BookingId == id)
-                {
-                    booking = Bookings[i];
-                }
-            }
-            return booking;
-        }
-
-        public void UpdateBooking(int id, Booking b)
-        {
-            for (int i = 0; i < Bookings.Count; i++)
-            {
-                if (Bookings[i].BookingId == id)
-                {
-                    Bookings[i] = b;
-                }
-            }
-        }*/
-
         public override string ToString()
         {
             return "Date Of Birth: " + DateOfBirth.Day + "/" + DateOfBirth.Month + "/" + DateOfBirth.Year + "\nDriving License Number: " + DrivingLicenseNumber + "\nDriving License Expiry Date: " + DrivingLicenseExpiryDate.Day + "/" + DrivingLicenseExpiryDate.Month + "/" + DrivingLicenseExpiryDate.Year + "\nNRIC: " + Nric + "\nAddress: " + Address + "\nValidated Driving License: " + (ValidatedDrivingLicense ? "Yes" : "No") + "\nValidation Date: " + ValidationDate.Day + "/" + ValidationDate.Month + "/" + ValidationDate.Year + "\nRenter Id: " + RenterId + "\nNumber Of Bookings: " + Bookings.Count;
