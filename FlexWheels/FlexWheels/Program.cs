@@ -10,33 +10,36 @@ namespace FlexWheels
     {
         static void Main(string[] args)
         {
-/*            // Test vehicle class
-            Vehicle vehicle = new Vehicle("a", "b", DateTime.Now, 1, "c", "d", "e", DateTime.Now);
-            Console.WriteLine(vehicle.ToString());
-            Console.ReadLine();
+            /*            // Test vehicle class
+                        Vehicle vehicle = new Vehicle("a", "b", DateTime.Now, 1, "c", "d", "e", DateTime.Now);
+                        Console.WriteLine(vehicle.ToString());
+                        Console.ReadLine();
 
-            // Test booking class
-            Booking booking = new Booking(DateTime.Now, DateTime.Now, 1, "a", "b", "c", "d");
-            Console.WriteLine(booking.ToString());
-            Console.ReadLine();
+                        // Test booking class
+                        Booking booking = new Booking(DateTime.Now, DateTime.Now, 1, "a", "b", "c", "d");
+                        Console.WriteLine(booking.ToString());
+                        Console.ReadLine();
 
-            // Test prime class
-            Prime prime = new Prime(DateTime.Now, "a", DateTime.Now, "b", "c", true, DateTime.Now, "d", DateTime.Now, DateTime.Now, 1.1, 1.1, new List<string> { "1", "2" });
-            Console.WriteLine(prime.ToString());
-            Console.ReadLine();
+                        // Test prime class
+                        Prime prime = new Prime(DateTime.Now, "a", DateTime.Now, "b", "c", true, DateTime.Now, "d", DateTime.Now, DateTime.Now, 1.1, 1.1, new List<string> { "1", "2" });
+                        Console.WriteLine(prime.ToString());
+                        Console.ReadLine();
 
-            // Test renter class
-            Renter renter = new Renter(DateTime.Now, "a", DateTime.Now, "b", "c", true, DateTime.Now);
-            Console.WriteLine(renter.ToString());
-            Console.ReadLine();*/
+                        // Test renter class
+                        Renter renter = new Renter(DateTime.Now, "a", DateTime.Now, "b", "c", true, DateTime.Now);
+                        Console.WriteLine(renter.ToString());
+                        Console.ReadLine();*/
 
             // Test Data
 
             // Return Vehicle - Chua Guo Heng (S10223608)
-            Vehicle grSupra = new Vehicle("Toyota", "GR Supra", new DateTime(2024, 1, 1), 100000, "", "SBA1234A", "", new DateTime(2024, 7, 20), true, 1, new List<Booking>());
-            Booking grSupraBooking = new Booking(new DateTime(2024, 7, 21), new DateTime(2024, 7, 22), 24, "FlexWheels Station", "Bukit Gombak", "", "", 1, grSupra);
-            Vehicle grYaris = new Vehicle("Toyota", "GR Yaris", new DateTime(2024, 1, 1), 100000, "", "RD2345R", "", new DateTime(2024, 7, 20), true, 2, new List<Booking>());
-            Booking grYarisBooking = new Booking(new DateTime(2024, 7, 22), new DateTime(2024, 7, 23), 24, "FlexWheels Station", "Bukit Gombak", "", "", 2, grYaris);
+            string[] photos = { "1", "2" };
+            Vehicle grSupra = new Vehicle("Toyota", "GR Supra", "2024", 100000, photos, "SBA1234A", photos, new DateTime(2024, 7, 20), 1, new List<Booking>());
+            Booking grSupraBooking = new Booking(new DateTime(2024, 7, 21), new DateTime(2024, 7, 22), "FlexWheels Station", "Bukit Gombak", "", "", 1, "Ongoing", grSupra);
+            Vehicle grYaris = new Vehicle("Toyota", "GR Yaris", "2024", 100000, photos, "RD2345R", photos, new DateTime(2024, 7, 20), 2, new List<Booking>());
+            Booking grYarisBooking = new Booking(new DateTime(2024, 7, 22), new DateTime(2024, 7, 23), "FlexWheels Station", "Bukit Gombak", "", "", 2, "Ongoing", grYaris);
+            grSupra.BookingList.Add(grSupraBooking);
+            grYaris.BookingList.Add(grYarisBooking);
             List<Booking> bookings = new List<Booking>
             {
                 grSupraBooking,
@@ -48,12 +51,17 @@ namespace FlexWheels
             // Implementation Of Sequence Diagram
 
             // Main Program
-
-            // Create 3 profiles, 1 Car Owner, 1 Renter, and 1 Admin (To be confirmed)
+            string showMainMenu = "";
 
             while (true)
             {
-                MainMenu();
+                if (showMainMenu == "")
+                {
+                    MainMenu();
+                    showMainMenu = "Shown";
+                }
+
+                Console.Write("Choose A Profile: ");
                 string? profileChosen = Console.ReadLine();
 
                 if (profileChosen != null)
@@ -62,46 +70,59 @@ namespace FlexWheels
                     {
                         Console.Clear();
                         ReturnVehicle(renter);
+                        showMainMenu = "";
                     }
                     else
                     {
+                        Console.WriteLine("====================================================================");
                         Console.WriteLine("Please choose a valid profile");
+                        Console.WriteLine("====================================================================");
                     }
                 }
                 else
                 {
+                    Console.WriteLine("====================================================================");
                     Console.WriteLine("Please choose a profile");
+                    Console.WriteLine("====================================================================");
                 }
             }
 
             // Features (Functions)
             static void MainMenu()
             {
-                Console.WriteLine("==================================================================");
-                Console.WriteLine("------------------------ Choose A Profile ------------------------");
-                Console.WriteLine("==================================================================");
+                Console.WriteLine("====================================================================");
+                Console.WriteLine("----------------------------- Profiles -----------------------------");
+                Console.WriteLine("====================================================================");
                 Console.WriteLine("1. Renter (Return Vehicle, Choose Return Method, Make Payment)");
-                Console.WriteLine("==================================================================");
-                Console.Write("Profile: ");
+                Console.WriteLine("====================================================================");
             }
 
             // Return Vehicle - Chua Guo Heng (S10223608)
             static void ReturnVehicle(Renter r)
             {
+                int positionOfVehicleChosen;
+                string? confirmationOfReturningVehicle = "";
+
                 // Display list of vehicles the renter is currently renting
                 DisplayListOfVehiclesCurrentlyRenting(r.Bookings);
 
                 while (true)
                 {
+                    if (confirmationOfReturningVehicle == "N" || confirmationOfReturningVehicle == "n")
+                    {
+                        confirmationOfReturningVehicle = "";
+                        Console.Clear();
+                        DisplayListOfVehiclesCurrentlyRenting(r.Bookings);
+                    }
+
                     Console.Write("Choose A Vehicle You Would Like To Return: ");
                     string? optionChosen = Console.ReadLine();
                     if (optionChosen != null)
                     {
-                        int positionOfVehicleChosen;
                         bool isInt = int.TryParse(optionChosen, out positionOfVehicleChosen);
                         if (isInt)
                         {
-                            if (positionOfVehicleChosen > 0 && positionOfVehicleChosen < r.Bookings.Count)
+                            if (positionOfVehicleChosen > 0 && positionOfVehicleChosen <= r.Bookings.Count)
                             {
                                 Console.Clear();
 
@@ -110,186 +131,234 @@ namespace FlexWheels
                                 while (true)
                                 {
                                     Console.Write("Return This Vehicle? (Y/N): ");
-                                    string? confirmationOfReturningVehicle = Console.ReadLine();
+                                    confirmationOfReturningVehicle = Console.ReadLine();
                                     if (confirmationOfReturningVehicle == "Y" || confirmationOfReturningVehicle == "y" || confirmationOfReturningVehicle == "N" || confirmationOfReturningVehicle == "n")
                                     {
                                         if (confirmationOfReturningVehicle == "N" || confirmationOfReturningVehicle == "n")
                                         {
-                                            continue;
+                                            break;
                                         }
 
                                         // Begin process of returning vehicle
-                                        Console.Clear();
-
-                                        // Display return methods
-                                        DisplayReturnMethods();
 
                                         bool acknowledge = false;
                                         while (!acknowledge) // Should this be acknowledge or the status that will be received from "Make Payment" Use Case?
                                         {
-                                            // Prompt for return method
-                                            Console.Write("Choose One Of The Return Methods: ");
-                                            string? returnOption = Console.ReadLine();
-                                            string[] returnMethods = { "Drop Off", "Desired Location" };
-                                            string[] flexWheelsStations = { "Bukit Batok", "Bukit Gombak", "Choa Chu Kang", "Jurong East" };
+                                            Console.Clear();
 
-                                            int returnOptionChosen;
-                                            int flexWheelsStationOptionChosen;
-                                            bool returnOptionIsInt = int.TryParse(returnOption, out returnOptionChosen);
+                                            // Display return methods
+                                            DisplayReturnMethods();
 
-                                            string returnMethod = "";
-                                            string returnLocation = "";
-
-                                            bool confirmReturnLocation = false;
-
-                                            // Check whether user input is valid
-                                            if (returnOptionIsInt && returnOptionChosen > 0 && returnOptionChosen <= returnMethods.Length)
+                                            while (true)
                                             {
-                                                returnMethod = returnMethods[returnOptionChosen - 1];
-                                                Console.Clear();
+                                                // Prompt for return method
+                                                Console.Write("Choose One Of The Return Methods: ");
+                                                string? returnOption = Console.ReadLine();
+                                                string[] returnMethods = { "Drop Off", "Desired Location" };
+                                                string[] flexWheelsStations = { "Bukit Batok", "Bukit Gombak", "Choa Chu Kang", "Jurong East" };
 
-                                                // Check whether return method chosen is Drop Off
-                                                if (returnOptionChosen == 1)
+                                                int returnOptionChosen;
+                                                int flexWheelsStationOptionChosen;
+                                                bool returnOptionIsInt = int.TryParse(returnOption, out returnOptionChosen);
+
+                                                string returnMethod = "";
+                                                string returnLocation = "";
+
+                                                bool confirmReturnLocation = false;
+
+                                                // Check whether user input is valid
+                                                if (returnOptionIsInt && returnOptionChosen > 0 && returnOptionChosen <= returnMethods.Length)
                                                 {
-                                                    // Display a list of FlexWheels Station location
-                                                    DisplayFlexWheelsStations(flexWheelsStations);
+                                                    returnMethod = returnMethods[returnOptionChosen - 1];
+                                                    Console.Clear();
 
-                                                    while (!confirmReturnLocation)
+                                                    // Check whether return method chosen is Drop Off
+                                                    if (returnOptionChosen == 1)
                                                     {
-                                                        // Prompt for choice of FlexWheels Station
-                                                        Console.Write("Choose one of the FlexWheels stations: ");
-                                                        string? flexWheelsStationOption = Console.ReadLine();
-
-                                                        bool flexWheelsStationOptionIsInt = int.TryParse(flexWheelsStationOption, out flexWheelsStationOptionChosen);
-
-                                                        if (!flexWheelsStationOptionIsInt || flexWheelsStationOptionChosen <= 0 || flexWheelsStationOptionChosen > flexWheelsStations.Length)
+                                                        while (!confirmReturnLocation)
                                                         {
-                                                            Console.WriteLine("Please choose a valid option");
-                                                        }
-                                                        else
-                                                        {
-                                                            Console.WriteLine("=======================================================================");
+                                                            if (returnLocation == "")
+                                                            {
+                                                                returnLocation = "shown";
 
-                                                            // Prompt to confirm return location
+                                                                Console.Clear();
+
+                                                                // Display a list of FlexWheels Station location
+                                                                DisplayFlexWheelsStations(flexWheelsStations);
+                                                            }
+
                                                             while (true)
                                                             {
-                                                                Console.Write("Are you sure this is the correct return location? (Y/N): ");
-                                                                string? confirmOption = Console.ReadLine();
+                                                                // Prompt for choice of FlexWheels Station
+                                                                Console.Write("Choose one of the FlexWheels stations: ");
+                                                                string? flexWheelsStationOption = Console.ReadLine();
 
-                                                                if (confirmOption == "Y" || confirmOption == "y" || confirmOption == "N" || confirmOption == "n")
+                                                                bool flexWheelsStationOptionIsInt = int.TryParse(flexWheelsStationOption, out flexWheelsStationOptionChosen);
+
+                                                                if (!flexWheelsStationOptionIsInt || flexWheelsStationOptionChosen <= 0 || flexWheelsStationOptionChosen > flexWheelsStations.Length)
                                                                 {
-                                                                    if (confirmOption == "Y" || confirmOption == "y")
-                                                                    {
-                                                                        confirmReturnLocation = true;
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        confirmReturnLocation = false;
-                                                                    }
-                                                                    break;
+                                                                    Console.WriteLine("===================================================================");
+                                                                    Console.WriteLine("Please choose a valid option");
+                                                                    Console.WriteLine("===================================================================");
                                                                 }
                                                                 else
                                                                 {
-                                                                    Console.WriteLine("=======================================================================");
-                                                                    Console.WriteLine("Please choose a valid option");
-                                                                    Console.WriteLine("=======================================================================");
+                                                                    Console.WriteLine("===================================================================");
+
+                                                                    // Prompt to confirm return location
+                                                                    while (true)
+                                                                    {
+                                                                        Console.Write("Are you sure this is the correct return location? (Y/N): ");
+                                                                        string? confirmOption = Console.ReadLine();
+
+                                                                        if (confirmOption == "Y" || confirmOption == "y" || confirmOption == "N" || confirmOption == "n")
+                                                                        {
+                                                                            if (confirmOption == "Y" || confirmOption == "y")
+                                                                            {
+                                                                                confirmReturnLocation = true;
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                confirmReturnLocation = false;
+                                                                            }
+                                                                            break;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            Console.WriteLine("=======================================================================");
+                                                                            Console.WriteLine("Please choose a valid option");
+                                                                            Console.WriteLine("=======================================================================");
+                                                                        }
+                                                                    }
+
+                                                                    if (confirmReturnLocation)
+                                                                    {
+                                                                        returnLocation = flexWheelsStations[flexWheelsStationOptionChosen - 1];
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        returnLocation = "";
+                                                                    }
+
+                                                                    break;
                                                                 }
-                                                            }
-                                                            
-                                                            if (confirmReturnLocation)
-                                                            {
-                                                                returnLocation = flexWheelsStations[flexWheelsStationOptionChosen - 1];
                                                             }
                                                         }
                                                     }
-                                                }
-                                                // Check whether return method chosen is Desired Location
-                                                else if (returnOptionChosen == 2)
-                                                {
-                                                    // Display additional fees being charged
-                                                    DisplayAdditionalFees();
-
-                                                    while (true)
+                                                    // Check whether return method chosen is Desired Location
+                                                    else if (returnOptionChosen == 2)
                                                     {
-                                                        // Prompt for acknowledgement
-                                                        Console.Write("Do you acknowledge the additional fees being charged? (Y/N): ");
-                                                        string? acknowledgeOption = Console.ReadLine();
-                                                        if (acknowledgeOption == "Y" || acknowledgeOption == "y" || acknowledgeOption == "N" || acknowledgeOption == "n")
+                                                        // Display additional fees being charged
+                                                        DisplayAdditionalFees();
+
+                                                        while (true)
                                                         {
-                                                            if (acknowledgeOption == "Y" || acknowledgeOption == "y")
+                                                            // Prompt for acknowledgement
+                                                            Console.Write("Do you acknowledge the additional fees being charged? (Y/N): ");
+                                                            string? acknowledgeOption = Console.ReadLine();
+                                                            if (acknowledgeOption == "Y" || acknowledgeOption == "y" || acknowledgeOption == "N" || acknowledgeOption == "n")
                                                             {
-                                                                acknowledge = true;
+                                                                if (acknowledgeOption == "Y" || acknowledgeOption == "y")
+                                                                {
+                                                                    acknowledge = true;
+                                                                }
+                                                                else
+                                                                {
+                                                                    acknowledge = false;
+                                                                }
+                                                                break;
                                                             }
                                                             else
                                                             {
-                                                                acknowledge = false;
+                                                                Console.WriteLine("===================================================================");
+                                                                Console.WriteLine("Please choose a valid option");
+                                                                Console.WriteLine("===================================================================");
                                                             }
+                                                        }
+
+                                                        if (!acknowledge)
+                                                        {
                                                             break;
                                                         }
-                                                        else
+
+                                                        Console.Clear();
+
+                                                        Console.WriteLine("=======================================================================");
+                                                        Console.WriteLine("--------------------------- Return Location ---------------------------");
+                                                        Console.WriteLine("=======================================================================");
+
+                                                        while (true)
                                                         {
-                                                            Console.WriteLine("===================================================================");
-                                                            Console.WriteLine("Please choose a valid option");
-                                                            Console.WriteLine("===================================================================");
-                                                        }
-                                                    }
+                                                            // Prompt for return location
+                                                            Console.Write("Enter a return location: ");
+                                                            string? returnLocationEntered = Console.ReadLine();
 
-                                                    if (!acknowledge)
-                                                    {
-                                                        continue;
-                                                    }
-
-                                                    Console.Clear();
-
-                                                    Console.WriteLine("=======================================================================");
-                                                    Console.WriteLine("--------------------------- Return Location ---------------------------");
-                                                    Console.WriteLine("=======================================================================");
-
-                                                    while (true)
-                                                    {
-                                                        // Prompt for return location
-                                                        Console.Write("Enter a return location: ");
-                                                        string? returnLocationEntered = Console.ReadLine();
-
-                                                        if (returnLocationEntered != null)
-                                                        {
-                                                            Console.WriteLine("=======================================================================");
-
-                                                            // Prompt to confirm return location
-                                                            while (true)
+                                                            if (returnLocationEntered != null)
                                                             {
-                                                                Console.Write("Are you sure this is the correct return location? (Y/N): ");
-                                                                string? confirmOption = Console.ReadLine();
+                                                                Console.WriteLine("=======================================================================");
 
-                                                                if (confirmOption == "Y" || confirmOption == "y" || confirmOption == "N" || confirmOption == "n")
+                                                                // Prompt to confirm return location
+                                                                while (true)
                                                                 {
-                                                                    if (confirmOption == "Y" || confirmOption == "y")
+                                                                    Console.Write("Are you sure this is the correct return location? (Y/N): ");
+                                                                    string? confirmOption = Console.ReadLine();
+
+                                                                    if (confirmOption == "Y" || confirmOption == "y" || confirmOption == "N" || confirmOption == "n")
                                                                     {
-                                                                        confirmReturnLocation = true;
-                                                                        returnLocation = returnLocationEntered;
+                                                                        if (confirmOption == "Y" || confirmOption == "y")
+                                                                        {
+                                                                            confirmReturnLocation = true;
+                                                                            returnLocation = returnLocationEntered;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            confirmReturnLocation = false;
+                                                                        }
+                                                                        break;
                                                                     }
                                                                     else
                                                                     {
-                                                                        confirmReturnLocation = false;
+                                                                        Console.WriteLine("=======================================================================");
+                                                                        Console.WriteLine("Please choose a valid option");
+                                                                        Console.WriteLine("=======================================================================");
                                                                     }
-                                                                    break;
                                                                 }
-                                                                else
-                                                                {
-                                                                    Console.WriteLine("=======================================================================");
-                                                                    Console.WriteLine("Please choose a valid option");
-                                                                    Console.WriteLine("=======================================================================");
-                                                                }
+                                                                break;
                                                             }
-                                                            break;
-                                                        }
-                                                        else
-                                                        {
-                                                            Console.WriteLine("=======================================================================");
-                                                            Console.WriteLine("Please enter a valid location");
-                                                            Console.WriteLine("=======================================================================");
+                                                            else
+                                                            {
+                                                                Console.WriteLine("=======================================================================");
+                                                                Console.WriteLine("Please enter a valid location");
+                                                                Console.WriteLine("=======================================================================");
+                                                            }
                                                         }
                                                     }
+                                                    else
+                                                    {
+                                                        Console.WriteLine("==========================================");
+                                                        Console.WriteLine("Please choose one of the options");
+                                                        Console.WriteLine("==========================================");
+                                                    }
+
+                                                    // Update booking
+
+                                                    Booking currentBooking = r.Bookings[Convert.ToInt32(optionChosen) - 1];
+                                                    currentBooking.ReturnMethod = returnMethod;
+                                                    currentBooking.ReturnLocation = returnLocation;
+                                                    r.Bookings[Convert.ToInt32(optionChosen) - 1] = currentBooking;
+
+                                                    Console.Clear();
+
+                                                    Console.WriteLine(r.Bookings[Convert.ToInt32(optionChosen) - 1].ToString());
+                                                    Console.WriteLine("===========================================");
+                                                    Console.Write("Press enter to proceed to payment");
+                                                    Console.ReadLine();
+
+                                                    Console.Clear();
+
+                                                    // Call "Make Payment" function (Get a status from "Make Payment" function that will break all the loops)
+
+                                                    return;
                                                 }
                                                 else
                                                 {
@@ -297,19 +366,6 @@ namespace FlexWheels
                                                     Console.WriteLine("Please choose one of the options");
                                                     Console.WriteLine("==========================================");
                                                 }
-
-                                                // Update booking
-
-                                                Booking currentBooking = r.Bookings[Convert.ToInt32(optionChosen) - 1];
-                                                currentBooking.ReturnMethod = returnMethod;
-                                                currentBooking.ReturnLocation = returnLocation;
-                                                r.Bookings[Convert.ToInt32(optionChosen) - 1] = currentBooking;
-                                                Console.WriteLine(r.Bookings[Convert.ToInt32(optionChosen) - 1].ToString());
-                                                Console.ReadLine();
-
-                                                Console.Clear();
-
-                                                // Call "Make Payment" function (Get a status from "Make Payment" function that will break all the loops)
                                             }
                                         }
                                     }
@@ -389,14 +445,14 @@ namespace FlexWheels
 
             static void DisplayFlexWheelsStations(string[] s)
             {
-                Console.WriteLine("===============================================");
-                Console.WriteLine("------------- FlexWheels Stations -------------");
-                Console.WriteLine("===============================================");
+                Console.WriteLine("===================================================================");
+                Console.WriteLine("----------------------- FlexWheels Stations -----------------------");
+                Console.WriteLine("===================================================================");
                 for (int i = 0; i < s.Length; i++)
                 {
                     Console.WriteLine((i + 1) + ". " + s[i]);
                 }
-                Console.WriteLine("===============================================");
+                Console.WriteLine("===================================================================");
             }
         }
     }
