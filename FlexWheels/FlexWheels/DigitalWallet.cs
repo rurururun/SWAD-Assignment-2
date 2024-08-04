@@ -22,5 +22,4 @@ namespace FlexWheels
             TransactionReferenceNo = transactionReferenceNo;
         }
     }
-
 }
