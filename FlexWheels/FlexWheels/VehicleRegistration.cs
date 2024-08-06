@@ -51,7 +51,7 @@ namespace FlexWheels
             string year = PromptForInput("Enter vehicle year: ");
             int mileage = PromptForIntInput("Enter vehicle mileage: ");
             string licensePlate = PromptForInput("Enter license plate: ");
-            DateTime inspectionDate = PromptForDateInput("Enter inspection date (MM/DD/YYYY): ");
+            DateTime inspectionDate = PromptForDateInput("Enter inspection date (DD/MM/YYYY): ");
             string[] photos = PromptForInput("Enter photos (separate by commas): ").Split(',');
             string[] insurance = PromptForInput("Enter insurance information (separate by commas): ").Split(',');
 
