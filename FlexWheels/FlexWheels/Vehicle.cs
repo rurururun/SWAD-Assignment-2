@@ -10,13 +10,12 @@ namespace FlexWheels
     {
         private string make;
         private string model;
-        private DateTime year; // Seems vague, what is this?
-        private int mileage; // In terms of KM or Miles?
-        private string photos;
+        private string year;
+        private int mileage;
+        private string[] photos;
         private string licensePlateNumber;
-        private string insurance;
+        private string[] insurance;
         private DateTime inspectionDate;
-        private bool rentalStatus;
         private int vehicleId;
         private List<Booking> bookingList;
 
@@ -32,7 +31,7 @@ namespace FlexWheels
             set { model = value; }
         }
 
-        public DateTime Year
+        public string Year
         {
             get { return year; }
             set { year = value; }
@@ -44,7 +43,7 @@ namespace FlexWheels
             set { mileage = value; }
         }
 
-        public string Photos
+        public string[] Photos
         {
             get { return photos; }
             set { photos = value; }
@@ -56,7 +55,7 @@ namespace FlexWheels
             set { licensePlateNumber = value; }
         }
 
-        public string Insurance
+        public string[] Insurance
         {
             get { return insurance; }
             set { insurance = value; }
@@ -66,12 +65,6 @@ namespace FlexWheels
         {
             get { return inspectionDate; }
             set { inspectionDate = value; }
-        }
-
-        public bool RentalStatus
-        {
-            get { return rentalStatus; }
-            set { rentalStatus = value; }
         }
 
         public int VehicleId
@@ -88,7 +81,7 @@ namespace FlexWheels
 
         public Vehicle() { }
 
-        public Vehicle(string mk, string md, DateTime y, int mge, string p, string lpn, string i, DateTime id, bool rs, int v, List<Booking> bl)
+        public Vehicle(string mk, string md, string y, int mge, string[] p, string lpn, string[] i, DateTime id, int v, List<Booking> bl)
         {
             make = mk;
             model = md;
@@ -98,14 +91,25 @@ namespace FlexWheels
             licensePlateNumber = lpn;
             insurance = i;
             inspectionDate = id;
-            rentalStatus = rs;
             vehicleId = v;
             bookingList = bl;
         }
 
+        public string printArray(string[] array)
+        {
+            string arrayToBePrinted = "";
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                arrayToBePrinted += array[i] + "\n";
+            }
+
+            return arrayToBePrinted;
+        }
+
         public override string ToString()
         {
-            return "Make: " + Make + "\nModel: " + Model + "\nYear: " + Year.Year + "\nMileage: " + Mileage + "\nPhotos: " + Photos + "\nLicense Plate Number: " + LicensePlateNumber + "\nInsurance: " + Insurance + "\nInspection Date: " + InspectionDate.Day + "/" + InspectionDate.Month + "/" + InspectionDate.Year + "\nRental Status: " + (RentalStatus ? "Rented" : "Not Rented") + "\nVehicle ID: " + VehicleId;
+            return "Make: " + Make + "\nModel: " + Model + "\nYear: " + Year + "\nMileage: " + Mileage + " km\nPhotos:\n" + printArray(Photos) + "License Plate Number: " + LicensePlateNumber + "\nInsurance:\n" + printArray(Insurance) + "Inspection Date: " + InspectionDate.Day + "/" + InspectionDate.Month + "/" + InspectionDate.Year + "\nVehicle ID: " + VehicleId;
         }
     }
 }
