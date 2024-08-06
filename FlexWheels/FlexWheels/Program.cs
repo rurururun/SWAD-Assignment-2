@@ -151,6 +151,12 @@ namespace FlexWheels
                         CarOwnerMenu();  // Sheethal 
                         showMainMenu = "";
                     }
+                    else if (profileChosen == "4")
+                    {
+                        Console.Clear();
+                        CancelRentalMenu();
+                        showMainMenu = "";
+                    }
                     else
                     {
                         Console.WriteLine("====================================================================");
@@ -177,6 +183,7 @@ namespace FlexWheels
 				Console.WriteLine("1. Renter (Return Vehicle, Choose Return Method, Make Payment)");
 				Console.WriteLine("2. Admin (Validate Driver License)");
                 Console.WriteLine("3. Car Owner (Register Vehicle) ");
+                Console.WriteLine("4. Renter (Cancel Rental)");  // Added Cancel Rental option
                 Console.WriteLine("====================================================================");
             }
 
@@ -693,6 +700,55 @@ namespace FlexWheels
             {
                 VehicleRegistration registration = new VehicleRegistration();
                 registration.DisplayRegisteredVehicles();
+            }
+
+
+            static void CancelRentalMenu()
+            {
+                CancelRental cancelRentalService = new CancelRental();
+                bool exit = false;
+
+                while (!exit)
+                {
+                    Console.WriteLine("====================================================================");
+                    Console.WriteLine("--------------------- Cancel Rental Options ---------------------");
+                    Console.WriteLine("====================================================================");
+                    Console.WriteLine("1. Cancel Rental");
+                    Console.WriteLine("2. Exit to main menu");
+                    Console.WriteLine("====================================================================");
+                    Console.Write("Choose an option: ");
+                    string? input = Console.ReadLine();
+
+                    if (input == "1")
+                    {
+                        cancelRentalService.DisplayBookings();
+                        Console.WriteLine("Enter Booking ID to cancel:");
+                        if (int.TryParse(Console.ReadLine(), out int bookingId))
+                        {
+                            string result = cancelRentalService.CancelBooking(bookingId);
+                            Console.WriteLine(result);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Booking ID. Please enter a numeric value.");
+                        }
+                    }
+                    else if (input == "2")
+                    {
+                        exit = true;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid option. Please select a valid option.");
+                    }
+
+                    // Display updated list of active bookings
+                    if (!exit)
+                    {
+                        Console.WriteLine("Updated list of active bookings:");
+                        cancelRentalService.DisplayBookings();
+                    }
+                }
             }
         }
     }
