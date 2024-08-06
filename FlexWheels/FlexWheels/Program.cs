@@ -12,6 +12,10 @@ namespace FlexWheels
     {
         static void Main(string[] args)
         {
+            
+
+
+
             // Test Data
 
             // Return Vehicle - Chua Guo Heng (S10223608)
@@ -141,6 +145,12 @@ namespace FlexWheels
                         SelectRenterAndValidate(renters);
 						showMainMenu = "";
 					}
+                    else if (profileChosen == "3")
+                    {
+                        Console.Clear();
+                        CarOwnerMenu();  // Sheethal 
+                        showMainMenu = "";
+                    }
                     else
                     {
                         Console.WriteLine("====================================================================");
@@ -166,7 +176,8 @@ namespace FlexWheels
 				Console.WriteLine("====================================================================");
 				Console.WriteLine("1. Renter (Return Vehicle, Choose Return Method, Make Payment)");
 				Console.WriteLine("2. Admin (Validate Driver License)");
-				Console.WriteLine("====================================================================");
+                Console.WriteLine("3. Car Owner (Register Vehicle) ");
+                Console.WriteLine("====================================================================");
             }
 
             // Return Vehicle - Chua Guo Heng (S10223608)
@@ -622,6 +633,66 @@ namespace FlexWheels
                 }
 
                 Console.WriteLine();
+            }
+
+            // Sheethal: Car Owner menu options
+            static void CarOwnerMenu()
+            {
+                while (true)
+                {
+                    Console.WriteLine("====================================================================");
+                    Console.WriteLine("--------------------- Car Owner Options ---------------------");
+                    Console.WriteLine("====================================================================");
+                    Console.WriteLine("1. Register a vehicle");
+                    Console.WriteLine("2. Validate a vehicle");
+                    Console.WriteLine("3. Show registered vehicles");
+                    Console.WriteLine("4. Exit to main menu");
+                    Console.WriteLine("====================================================================");
+                    Console.Write("Choose an option: ");
+                    string? input = Console.ReadLine();
+                    if (input == "1")
+                    {
+                        TestVehicleRegistration();  // Sheethal: Register vehicle
+                    }
+                    else if (input == "2")
+                    {
+                        ValidateVehicle();  // Sheethal: Validate vehicle
+                    }
+                    else if (input == "3")
+                    {
+                        ShowRegisteredVehicles();  // Sheethal: Show registered vehicles
+                    }
+                    else if (input == "4")
+                    {
+                        Console.Clear();
+                        break;  // Sheethal: Exit to main menu
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please choose a valid option.");
+                    }
+                }
+            }
+
+            // Sheethal: Method to call the vehicle registration process
+            static void TestVehicleRegistration()
+            {
+                VehicleRegistration registration = new VehicleRegistration();
+                registration.RegisterVehicle();
+            }
+
+            // Sheethal: Method to call the vehicle validation process
+            static void ValidateVehicle()
+            {
+                VehicleRegistration registration = new VehicleRegistration();
+                registration.ValidateVehicle();
+            }
+
+            // Sheethal: Method to call the display registered vehicles process
+            static void ShowRegisteredVehicles()
+            {
+                VehicleRegistration registration = new VehicleRegistration();
+                registration.DisplayRegisteredVehicles();
             }
         }
     }
