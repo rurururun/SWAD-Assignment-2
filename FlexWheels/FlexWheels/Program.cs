@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,6 +29,85 @@ namespace FlexWheels
             };
             Renter renter = new Renter(new DateTime(2002, 12, 12), "A0123456A", new DateTime(2067, 12, 12), "A0123456A", "20 MCCALLUM STREET #17-04 SINGAPORE 069046", true, new DateTime(2024, 7, 20), 1, bookings);
 
+            // Validate Driving License - Min Pyae Thar (S10240099)
+            List<Admin> admins = new List<Admin>
+            {
+                new Admin("admin1", "SuperAdmin", DateTime.Now),
+                new Admin("admin2", "Admin", DateTime.Now)
+            };
+
+            // valid Renter Object with valid license number
+            Renter renter1 = new Renter(
+                new DateTime(1980, 5, 15),                // DateOfBirth
+                "A1234567",                              // DrivingLicenseNumber (valid)
+                new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
+                "S1234567A",                              // Nric
+                "10 MAIN STREET, #05-06, SINGAPORE 123456", // Address
+                true,                                    // ValidatedDrivingLicense
+                new DateTime(2024, 8, 1),                 // ValidationDate
+                1,                                       // RenterId
+                new List<Booking>()                      // Bookings (empty for this example)
+            );
+
+            // Renter object with an empty license number
+            Renter renterEmptyLicense = new Renter(
+                new DateTime(1980, 5, 15),                // DateOfBirth
+                "",                                      // DrivingLicenseNumber (empty)
+                new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
+                "S1234567A",                              // Nric
+                "10 MAIN STREET, #05-06, SINGAPORE 123456", // Address
+                true,                                    // ValidatedDrivingLicense
+                new DateTime(2024, 8, 1),                 // ValidationDate
+                1,                                       // RenterId
+                new List<Booking>()                      // Bookings (empty for this example)
+            );
+
+            // Renter object with a license number that will not match the test input
+            Renter renterInvalidLicense = new Renter(
+                new DateTime(1980, 5, 15),                // DateOfBirth
+                "A1234567",                              // DrivingLicenseNumber (valid but different from input)
+                new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
+                "S1234567A",                              // Nric
+                "10 MAIN STREET, #05-06, SINGAPORE 123456", // Address
+                true,                                    // ValidatedDrivingLicense
+                new DateTime(2024, 8, 1),                 // ValidationDate
+                2,                                       // RenterId
+                new List<Booking>()                      // Bookings (empty for this example)
+            );
+
+            // Renter object with an expired license
+            Renter renterExpiredLicense = new Renter(
+                new DateTime(1980, 5, 15),                // DateOfBirth
+                "B2345678",                              // DrivingLicenseNumber (valid format)
+                new DateTime(2000, 1, 1),                 // DrivingLicenseExpiryDate (past date)
+                "S1234567B",                              // Nric
+                "20 SECOND STREET, #03-04, SINGAPORE 234567", // Address
+                true,                                    // ValidatedDrivingLicense
+                new DateTime(2024, 8, 1),                 // ValidationDate
+                3,                                       // RenterId
+                new List<Booking>()                      // Bookings (empty for this example)
+            );
+
+            // Renter object with an incorrectly formatted license number
+            Renter renterInvalidFormat = new Renter(
+                new DateTime(1980, 5, 15),                // DateOfBirth
+                "1234567",                               // DrivingLicenseNumber (invalid format)
+                new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
+                "S1234567C",                              // Nric
+                "30 THIRD STREET, #12-34, SINGAPORE 345678", // Address
+                true,                                    // ValidatedDrivingLicense
+                new DateTime(2024, 8, 1),                 // ValidationDate
+                4,                                       // RenterId
+                new List<Booking>()                      // Bookings (empty for this example)
+            );
+
+			//making Renter List
+			List<Renter> renters = new List<Renter> { renter1, renterInvalidLicense, renterExpiredLicense, renterEmptyLicense, renterInvalidFormat };
+
+
+            // making admin List
+
+
 
             // Implementation Of Sequence Diagram
 
@@ -50,14 +131,24 @@ namespace FlexWheels
                     {
                         Console.Clear();
                         ReturnVehicle(renter);
-                        showMainMenu = "";
-                    }
+						showMainMenu = "";
+					}
+                    else if (profileChosen == "2")
+                    {
+
+                        Console.Clear();
+                        DisplayAllRenters(renters);
+                        SelectRenterAndValidate(renters);
+						showMainMenu = "";
+					}
                     else
                     {
                         Console.WriteLine("====================================================================");
                         Console.WriteLine("Please choose a valid profile");
                         Console.WriteLine("====================================================================");
                     }
+
+
                 }
                 else
                 {
@@ -70,11 +161,12 @@ namespace FlexWheels
             // Features (Functions)
             static void MainMenu()
             {
-                Console.WriteLine("====================================================================");
-                Console.WriteLine("----------------------------- Profiles -----------------------------");
-                Console.WriteLine("====================================================================");
-                Console.WriteLine("1. Renter (Return Vehicle, Choose Return Method, Make Payment)");
-                Console.WriteLine("====================================================================");
+				Console.WriteLine("====================================================================");
+				Console.WriteLine("----------------------------- Profiles -----------------------------");
+				Console.WriteLine("====================================================================");
+				Console.WriteLine("1. Renter (Return Vehicle, Choose Return Method, Make Payment)");
+				Console.WriteLine("2. Admin (Validate Driver License)");
+				Console.WriteLine("====================================================================");
             }
 
             // Return Vehicle - Chua Guo Heng (S10223608)
@@ -425,14 +517,111 @@ namespace FlexWheels
 
             static void DisplayFlexWheelsStations(string[] s)
             {
-                Console.WriteLine("===================================================================");
-                Console.WriteLine("----------------------- FlexWheels Stations -----------------------");
-                Console.WriteLine("===================================================================");
+                Console.WriteLine("===============================================");
+                Console.WriteLine("------------- FlexWheels Stations -------------");
+                Console.WriteLine("===============================================");
                 for (int i = 0; i < s.Length; i++)
                 {
                     Console.WriteLine((i + 1) + ". " + s[i]);
                 }
+                Console.WriteLine("===============================================");
+            }
+
+            // Validate Driving License - Min Pyae Thar (S10240099)
+            static void DisplayAllRenters(List<Renter> renters)
+            {
                 Console.WriteLine("===================================================================");
+                Console.WriteLine("--------------------------- List of Renters -----------------------");
+                Console.WriteLine("===================================================================");
+                foreach (var renter in renters)
+                {
+                    Console.WriteLine(renter.ToString());
+                    Console.WriteLine("-------------------------------------------------------------------");
+                }
+                Console.WriteLine("===================================================================");
+            }
+
+            static void SelectRenterAndValidate(List<Renter> renters)
+            {
+                while (true)
+                {
+                    Console.WriteLine("Enter Renter ID to validate their driver's license, or type 'exit' to go back to the main menu:");
+
+                    string? input = Console.ReadLine();
+
+                    if (input?.ToLower() == "exit")
+                    {
+                        break; // Exit the loop and return to the main menu
+                    }
+
+                    if (int.TryParse(input, out int renterId))
+                    {
+                        var selectedRenter = renters.Find(r => r.RenterId == renterId);
+
+                        if (selectedRenter != null)
+                        {
+                            Console.WriteLine($"Selected Renter:\n{selectedRenter}");
+                            ValidateLicense(selectedRenter.DrivingLicenseNumber, selectedRenter);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid Renter ID. Please try again.");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid input. Please enter a valid Renter ID.");
+                    }
+
+                    // Pause to allow the user to read the output
+                    Console.WriteLine("\nPress Enter to continue...");
+                    Console.ReadLine();
+                }
+            }
+
+            static void TestLicenseValidation(Renter renter)
+            {
+                Console.WriteLine("Running Test Cases for License Validation...\n");
+
+                // Test Case TC-006: Submitting Empty License Info
+                ValidateLicense("", renter);
+                // Test Case TC-007: Submitting Expired License Info
+                ValidateLicense("EXPIRED1234", renter);
+                // Test Case TC-008: Submitting Non-Existent License Info
+                ValidateLicense("NONEXISTENT", renter);
+                // Test Case TC-009: Submitting Incorrectly Formatted License Info
+                ValidateLicense("12345ABC", renter);
+                // Test Case TC-010: Submitting Suspended License Info
+                ValidateLicense("SUSPENDED1234", renter);
+            }
+
+            static void ValidateLicense(string license, Renter renter)
+            {
+                Console.WriteLine($"Validating License: {license} for NRIC: {renter.Nric}, Date of Birth: {renter.DateOfBirth.ToShortDateString()}");
+
+                // Simulate license validation
+                if (string.IsNullOrEmpty(license))
+                {
+                    Console.WriteLine("Error: Driver's license number cannot be empty.");
+                }
+                else if (license != renter.DrivingLicenseNumber)
+                {
+                    Console.WriteLine("Error: Driver's license number does not match the record.");
+                }
+                else if (DateTime.Now > renter.DrivingLicenseExpiryDate)
+                {
+                    Console.WriteLine("Error: Driver's license is expired.");
+                }
+                else if (license.Length != 8 || !char.IsLetter(license[0]))
+                {
+                    Console.WriteLine("Error: Invalid format for driver's license number.");
+                }
+                else
+                {
+                    Console.WriteLine("Driver's license validated successfully.");
+                }
+
+                Console.WriteLine();
             }
         }
     }
