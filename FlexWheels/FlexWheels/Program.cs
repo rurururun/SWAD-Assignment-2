@@ -134,9 +134,9 @@ namespace FlexWheels
                     if (profileChosen == "1")
                     {
                         Console.Clear();
-                        ReturnVehicle(renter);
-						showMainMenu = "";
-					}
+                        ReturnOrCancelVehicle(renter); // janani part
+                        showMainMenu = "";
+                    }
                     else if (profileChosen == "2")
                     {
 
@@ -185,6 +185,26 @@ namespace FlexWheels
                 Console.WriteLine("3. Car Owner (Register Vehicle) ");
                 Console.WriteLine("4. Renter (Cancel Rental)");  // Added Cancel Rental option
                 Console.WriteLine("====================================================================");
+            }
+
+            // Determine action based on booking status - janani part
+            static void ReturnOrCancelVehicle(Renter renter)
+            {
+                Console.WriteLine("Select action: 1. Return Vehicle 2. Cancel Booking");
+                string action = Console.ReadLine();
+
+                if (action == "1")
+                {
+                    ReturnVehicle(renter); // Guo Heng part
+                }
+                else if (action == "2")
+                {
+                    CancelBooking(renter); // Janani part
+                }
+                else
+                {
+                    Console.WriteLine("Invalid action selected.");
+                }
             }
 
             // Return Vehicle - Chua Guo Heng (S10223608)
@@ -444,9 +464,13 @@ namespace FlexWheels
                                                     Console.Write("Press enter to proceed to payment");
                                                     Console.ReadLine();
 
-                                                    Console.Clear();
-
                                                     // Call "Make Payment" function (Get a status from "Make Payment" function that will break all the loops)
+                                                    MakePayment(CalculateRentalFee(currentBooking)); // janani part
+
+                                                    // After payment, return to main menu without exiting the loop
+                                                    Console.Clear();
+                                                    Console.WriteLine("Vehicle returned successfully.");
+
 
                                                     return;
                                                 }
@@ -487,6 +511,73 @@ namespace FlexWheels
                         Console.WriteLine("Please choose a vehicle");
                         Console.WriteLine("===================================================================");
                     }
+                }
+            }
+            // Cancel Booking - Sakthivelu Janani Sruthi (S10244262)
+            static void CancelBooking(Renter r)
+            {
+                Console.WriteLine("Cancelling booking...");
+                // Calculate cancellation fee
+                double cancellationFee = CalculateCancellationFee(r.Bookings[0]); // Example calculation
+                Console.WriteLine($"Cancellation Fee: ${cancellationFee}");
+
+                // Proceed to payment
+                MakePayment(cancellationFee);
+            }
+
+            // Calculate Rental Fee - janani part
+            static double CalculateRentalFee(Booking booking)
+            {
+                // Example calculation (should be replaced with actual logic)
+                return 100.0;
+            }
+
+            // Calculate Cancellation Fee - janani part
+            static double CalculateCancellationFee(Booking booking)
+            {
+                // Example calculation (should be replaced with actual logic)
+                return 50.0;
+            }
+
+            // Make Payment - janani part
+            static void MakePayment(double amount)
+            {
+                Console.WriteLine("Select Payment Method: 1. NETS 2. Credit Card 3. Digital Wallet");
+                int paymentMethod = int.Parse(Console.ReadLine());
+
+                switch (paymentMethod)
+                {
+                    case 1:
+                        Console.WriteLine("Enter Internet Banking ID:");
+                        string netBankingID = Console.ReadLine();
+                        Console.WriteLine("Enter PIN:");
+                        string pin = Console.ReadLine();
+                        Console.WriteLine("Processing NETS payment...");
+                        // Add NETS payment processing logic here
+                        Console.WriteLine("NETS payment successful.");
+                        break;
+
+                    case 2:
+                        Console.WriteLine("Enter Card Number:");
+                        string cardNumber = Console.ReadLine();
+                        Console.WriteLine("Enter Expiry Date:");
+                        string expiryDate = Console.ReadLine();
+                        Console.WriteLine("Enter CVC:");
+                        string cvc = Console.ReadLine();
+                        Console.WriteLine("Processing Credit Card payment...");
+                        // Add Credit Card payment processing logic here
+                        Console.WriteLine("Credit Card payment successful.");
+                        break;
+
+                    case 3:
+                        Console.WriteLine("Processing Digital Wallet payment...");
+                        // Add Digital Wallet payment processing logic here
+                        Console.WriteLine("Digital Wallet payment successful.");
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid payment method selected.");
+                        break;
                 }
             }
 

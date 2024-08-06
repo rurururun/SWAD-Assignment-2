@@ -8,6 +8,9 @@ namespace FlexWheels
 {
     internal class Booking
     {
+        public bool IsReturn { get; set; } // janani part
+        public bool IsCancelled { get; set; } // janani part
+
         private DateTime startDate;
         private DateTime endDate;
         private string pickupMethod;
