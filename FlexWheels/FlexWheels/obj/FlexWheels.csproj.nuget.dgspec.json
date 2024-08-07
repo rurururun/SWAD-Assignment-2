@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\avant\\source\\repos\\SWAD-Asg-2\\FlexWheels\\FlexWheels\\FlexWheels.csproj": {}
+    "C:\\Users\\avant\\source\\repos\\SWAD-again\\FlexWheels\\FlexWheels\\FlexWheels.csproj": {}
   },
   "projects": {
-    "C:\\Users\\avant\\source\\repos\\SWAD-Asg-2\\FlexWheels\\FlexWheels\\FlexWheels.csproj": {
+    "C:\\Users\\avant\\source\\repos\\SWAD-again\\FlexWheels\\FlexWheels\\FlexWheels.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\avant\\source\\repos\\SWAD-Asg-2\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+        "projectUniqueName": "C:\\Users\\avant\\source\\repos\\SWAD-again\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
         "projectName": "FlexWheels",
-        "projectPath": "C:\\Users\\avant\\source\\repos\\SWAD-Asg-2\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
+        "projectPath": "C:\\Users\\avant\\source\\repos\\SWAD-again\\FlexWheels\\FlexWheels\\FlexWheels.csproj",
         "packagesPath": "C:\\Users\\avant\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\avant\\source\\repos\\SWAD-Asg-2\\FlexWheels\\FlexWheels\\obj\\",
+        "outputPath": "C:\\Users\\avant\\source\\repos\\SWAD-again\\FlexWheels\\FlexWheels\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\avant\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -465,14 +466,16 @@ namespace FlexWheels
                                                     Console.ReadLine();
 
                                                     // Call "Make Payment" function (Get a status from "Make Payment" function that will break all the loops)
-                                                    MakePayment(CalculateRentalFee(currentBooking)); // janani part
+                                                    Console.WriteLine("Payment process initiated. Checking if it is for returning vehicle or cancelling booking."); // janani part
+                                                    double totalRentalFee = CalculateRentalFee(currentBooking); // janani part
+                                                    Console.WriteLine($"Total rental fee calculated: {totalRentalFee}"); // janani part
+                                                    Console.WriteLine($"Total rental fee: {totalRentalFee}"); // janani part
+                                                    MakePayment(totalRentalFee); // janani part
 
                                                     // After payment, return to main menu without exiting the loop
                                                     Console.Clear();
-                                                    Console.WriteLine("Vehicle returned successfully.");
-
-
-                                                    return;
+                                                    Console.WriteLine("Vehicle returned successfully."); // janani part
+                                                    return; // janani part
                                                 }
                                                 else
                                                 {
@@ -522,64 +525,160 @@ namespace FlexWheels
                 Console.WriteLine($"Cancellation Fee: ${cancellationFee}");
 
                 // Proceed to payment
-                MakePayment(cancellationFee);
+                MakePayment(cancellationFee); // janani part
             }
 
             // Calculate Rental Fee - janani part
             static double CalculateRentalFee(Booking booking)
             {
                 // Example calculation (should be replaced with actual logic)
-                return 100.0;
+                return 60.0; // Hardcoded total cost for returning
             }
 
             // Calculate Cancellation Fee - janani part
             static double CalculateCancellationFee(Booking booking)
             {
                 // Example calculation (should be replaced with actual logic)
-                return 50.0;
+                return 50.0; // Hardcoded total cost for cancellation
             }
 
             // Make Payment - janani part
             static void MakePayment(double amount)
             {
-                Console.WriteLine("Select Payment Method: 1. NETS 2. Credit Card 3. Digital Wallet");
+                Console.WriteLine("Please select a payment method: 1. NETS 2. Credit Card 3. Digital Wallet.");
                 int paymentMethod = int.Parse(Console.ReadLine());
 
                 switch (paymentMethod)
                 {
                     case 1:
-                        Console.WriteLine("Enter Internet Banking ID:");
+                        Console.WriteLine("NETS payment method selected."); // janani part
+                        Console.WriteLine("Enter your Internet Banking ID:"); // janani part
                         string netBankingID = Console.ReadLine();
-                        Console.WriteLine("Enter PIN:");
+                        while (string.IsNullOrEmpty(netBankingID) || !int.TryParse(netBankingID, out _)) // janani part
+                        {
+                            Console.WriteLine("Error: Invalid Internet Banking ID. Please enter a valid ID:"); // janani part
+                            netBankingID = Console.ReadLine();
+                        }
+                        Console.WriteLine($"Internet Banking ID entered: {netBankingID}"); // janani part
+
+                        Console.WriteLine("Enter your PIN:"); // janani part
                         string pin = Console.ReadLine();
-                        Console.WriteLine("Processing NETS payment...");
-                        // Add NETS payment processing logic here
-                        Console.WriteLine("NETS payment successful.");
+                        while (pin.Length != 4 || !int.TryParse(pin, out _)) // janani part
+                        {
+                            Console.WriteLine("Error: PIN must be exactly 4 digits. Please re-enter your PIN:"); // janani part
+                            pin = Console.ReadLine();
+                        }
+                        Console.WriteLine($"PIN entered: {pin}"); // janani part
+
+                        Console.WriteLine($"Total rental fee: {amount}"); // janani part
+                        Console.WriteLine("Please confirm your payment details: [Rental Details and Fee]"); // janani part
+                        Console.WriteLine("Confirm payment details (Y/N):"); // janani part
+                        string confirmation = Console.ReadLine();
+                        if (confirmation == "Y" || confirmation == "y")
+                        {
+                            Console.WriteLine("Payment details confirmed."); // janani part
+                            Console.WriteLine("Processing payment..."); // janani part
+                                                                        // Add NETS payment processing logic here
+                            Console.WriteLine("Payment successful."); // janani part
+                        }
+                        else
+                        {
+                            Console.WriteLine("Payment cancelled."); // janani part
+                        }
                         break;
 
                     case 2:
+                        Console.WriteLine("Credit Card payment method selected."); // janani part
                         Console.WriteLine("Enter Card Number:");
                         string cardNumber = Console.ReadLine();
-                        Console.WriteLine("Enter Expiry Date:");
+                        while (string.IsNullOrEmpty(cardNumber) || cardNumber.Length != 16 || !long.TryParse(cardNumber, out _)) // janani part
+                        {
+                            Console.WriteLine("Error: Invalid Card Number. Please enter a valid 16-digit Card Number:"); // janani part
+                            cardNumber = Console.ReadLine();
+                        }
+                        Console.WriteLine($"Card number entered: {cardNumber}"); // janani part
+
+                        Console.WriteLine("Enter Expiry Date (MM/YY):");
                         string expiryDate = Console.ReadLine();
+                        while (string.IsNullOrEmpty(expiryDate) || !ValidateExpiryDate(expiryDate)) // janani part
+                        {
+                            Console.WriteLine("Error: Invalid Expiry Date. Please enter a valid Expiry Date (MM/YY):"); // janani part
+                            expiryDate = Console.ReadLine();
+                        }
+                        Console.WriteLine($"Expiry date entered: {expiryDate}"); // janani part
+
                         Console.WriteLine("Enter CVC:");
                         string cvc = Console.ReadLine();
-                        Console.WriteLine("Processing Credit Card payment...");
-                        // Add Credit Card payment processing logic here
-                        Console.WriteLine("Credit Card payment successful.");
+                        while (string.IsNullOrEmpty(cvc) || cvc.Length != 3 || !int.TryParse(cvc, out _)) // janani part
+                        {
+                            Console.WriteLine("Error: Invalid CVC. Please enter a valid 3-digit CVC:"); // janani part
+                            cvc = Console.ReadLine();
+                        }
+                        Console.WriteLine($"CVC code entered: {cvc}"); // janani part
+
+                        Console.WriteLine($"Total rental fee: {amount}"); // janani part
+                        Console.WriteLine("Confirm payment details (Y/N):"); // janani part
+                        confirmation = Console.ReadLine();
+                        if (confirmation == "Y" || confirmation == "y")
+                        {
+                            Console.WriteLine("Payment details confirmed."); // janani part
+                            Console.WriteLine("Processing payment..."); // janani part
+                                                                        // Add Credit Card payment processing logic here
+                            Console.WriteLine("Payment successful."); // janani part
+                        }
+                        else
+                        {
+                            Console.WriteLine("Payment cancelled."); // janani part
+                        }
                         break;
 
                     case 3:
-                        Console.WriteLine("Processing Digital Wallet payment...");
-                        // Add Digital Wallet payment processing logic here
-                        Console.WriteLine("Digital Wallet payment successful.");
+                        Console.WriteLine("Digital Wallet payment method selected."); // janani part
+                        Console.WriteLine("Enter Registered Card:");
+                        string registeredCard = Console.ReadLine();
+                        while (string.IsNullOrEmpty(registeredCard)) // janani part
+                        {
+                            Console.WriteLine("Error: Invalid Registered Card. Please enter a valid card:"); // janani part
+                            registeredCard = Console.ReadLine();
+                        }
+                        Console.WriteLine($"Card selected: {registeredCard}"); // janani part
+
+                        Console.WriteLine($"Total rental fee: {amount}"); // janani part
+                        Console.WriteLine("Confirm payment details (Y/N):"); // janani part
+                        confirmation = Console.ReadLine();
+                        if (confirmation == "Y" || confirmation == "y")
+                        {
+                            Console.WriteLine("Payment details confirmed."); // janani part
+                            Console.WriteLine("Processing payment..."); // janani part
+                                                                        // Add Digital Wallet payment processing logic here
+                            Console.WriteLine("Payment successful."); // janani part
+                        }
+                        else
+                        {
+                            Console.WriteLine("Payment cancelled."); // janani part
+                        }
                         break;
 
                     default:
-                        Console.WriteLine("Invalid payment method selected.");
+                        Console.WriteLine("Invalid payment method selected."); // janani part
                         break;
                 }
             }
+
+            // Validate Expiry Date - janani part
+            static bool ValidateExpiryDate(string expiryDate)
+            {
+                if (DateTime.TryParseExact(expiryDate, "MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+                {
+                    // Ensure that the date is in the future
+                    return date > DateTime.Now;
+                }
+                return false;
+            }
+
+
+
+
 
             static void DisplayListOfVehiclesCurrentlyRenting(List<Booking> b)
             {
