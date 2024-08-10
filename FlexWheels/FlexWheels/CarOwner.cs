@@ -7,23 +7,38 @@ using FlexWheels;
 
 namespace FlexWheels
 {
-    internal class CarOwner
+    internal class CarOwner : Account
     {
-        public float Earning { get; set; }
+        public double Earning { get; set; }
         public List<Vehicle> OwnedCars { get; set; }
         public string Address { get; set; }
-        public int NumberOfVehicles { get; set; }
-        public float Rating { get; set; }
+        public double Rating { get; set; }
 
-        public CarOwner(float e, List<Vehicle> oc, string addr, int numVehicle, float r) 
+        public CarOwner() { }
+
+        public CarOwner(string n, string cn, int i, string e, string pass, double earn, List<Vehicle> oc, string addr, double r): base(n, cn, i, e, pass)
         { 
-            Earning = e;
+            Earning = earn;
             OwnedCars = oc;
             Address = addr;
-            NumberOfVehicles = numVehicle;
             Rating = r;
-
         }
 
+        public string PrintOwnedCars(List<Vehicle> v)
+        {
+            string carsToBePrinted = "";
+
+            for (int i = 0; i < v.Count; i++)
+            {
+                carsToBePrinted += "Vehicle " + (i + 1) + "\n" + v.ToString() + "\n";
+            }
+
+            return carsToBePrinted;
+        }
+
+        public override string ToString()
+        {
+            return base.ToString() + "\nEarnings: " + Earning + "\nOwned Cars:\n" + PrintOwnedCars(OwnedCars) + "Address: " + Address + "\nRating: " + Rating;
+        }
     }
 }

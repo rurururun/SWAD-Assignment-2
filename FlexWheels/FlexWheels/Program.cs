@@ -13,10 +13,6 @@ namespace FlexWheels
     {
         static void Main(string[] args)
         {
-            
-
-
-
             // Test Data
 
             // Return Vehicle - Chua Guo Heng (S10223608)
@@ -32,17 +28,22 @@ namespace FlexWheels
                 grSupraBooking,
                 grYarisBooking
             };
-            Renter renter = new Renter(new DateTime(2002, 12, 12), "A0123456A", new DateTime(2067, 12, 12), "A0123456A", "20 MCCALLUM STREET #17-04 SINGAPORE 069046", true, new DateTime(2024, 7, 20), 1, bookings);
+            Renter renter = new Renter("Ben", "00000000", 1,"testing@gmail.com","1234", new DateTime(2002, 12, 12), "A0123456A", new DateTime(2067, 12, 12), "A0123456A", "20 MCCALLUM STREET #17-04 SINGAPORE 069046", true, new DateTime(2024, 7, 20), 1, bookings);
 
             // Validate Driving License - Min Pyae Thar (S10240099)
             List<Admin> admins = new List<Admin>
             {
-                new Admin("admin1", "SuperAdmin", DateTime.Now),
-                new Admin("admin2", "Admin", DateTime.Now)
+                new Admin("Ben", "00000000", 1,"testing@gmail.com","1234", "admin1", "SuperAdmin", DateTime.Now),
+                new Admin("Ben", "00000000", 1,"testing@gmail.com","1234", "admin2", "Admin", DateTime.Now)
             };
 
             // valid Renter Object with valid license number
             Renter renter1 = new Renter(
+                "Ben",                                   // Name
+                "00000000",                              // Contact Number
+                1,                                       // ID
+                "testing@gmail.com",                     // Email
+                "1234",                                  // Password
                 new DateTime(1980, 5, 15),                // DateOfBirth
                 "A1234567",                              // DrivingLicenseNumber (valid)
                 new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
@@ -56,6 +57,11 @@ namespace FlexWheels
 
             // Renter object with an empty license number
             Renter renterEmptyLicense = new Renter(
+                "Ben",                                   // Name
+                "00000000",                              // Contact Number
+                1,                                       // ID
+                "testing@gmail.com",                     // Email
+                "1234",                                  // Password
                 new DateTime(1980, 5, 15),                // DateOfBirth
                 "",                                      // DrivingLicenseNumber (empty)
                 new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
@@ -69,6 +75,11 @@ namespace FlexWheels
 
             // Renter object with a license number that will not match the test input
             Renter renterInvalidLicense = new Renter(
+                "Ben",                                   // Name
+                "00000000",                              // Contact Number
+                1,                                       // ID
+                "testing@gmail.com",                     // Email
+                "1234",                                  // Password
                 new DateTime(1980, 5, 15),                // DateOfBirth
                 "A1234567",                              // DrivingLicenseNumber (valid but different from input)
                 new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
@@ -82,6 +93,11 @@ namespace FlexWheels
 
             // Renter object with an expired license
             Renter renterExpiredLicense = new Renter(
+                "Ben",                                   // Name
+                "00000000",                              // Contact Number
+                1,                                       // ID
+                "testing@gmail.com",                     // Email
+                "1234",                                  // Password
                 new DateTime(1980, 5, 15),                // DateOfBirth
                 "B2345678",                              // DrivingLicenseNumber (valid format)
                 new DateTime(2000, 1, 1),                 // DrivingLicenseExpiryDate (past date)
@@ -95,6 +111,11 @@ namespace FlexWheels
 
             // Renter object with an incorrectly formatted license number
             Renter renterInvalidFormat = new Renter(
+                "Ben",                                   // Name
+                "00000000",                              // Contact Number
+                1,                                       // ID
+                "testing@gmail.com",                     // Email
+                "1234",                                  // Password
                 new DateTime(1980, 5, 15),                // DateOfBirth
                 "1234567",                               // DrivingLicenseNumber (invalid format)
                 new DateTime(2035, 5, 15),                // DrivingLicenseExpiryDate (future date)
@@ -470,7 +491,7 @@ namespace FlexWheels
                                                     double totalRentalFee = CalculateRentalFee(currentBooking); // janani part
                                                     Console.WriteLine($"Total rental fee calculated: {totalRentalFee}"); // janani part
                                                     Console.WriteLine($"Total rental fee: {totalRentalFee}"); // janani part
-                                                    MakePayment(totalRentalFee); // janani part
+                                                    SelectPayment(totalRentalFee); // janani part
 
                                                     // After payment, return to main menu without exiting the loop
                                                     Console.Clear();
@@ -525,7 +546,7 @@ namespace FlexWheels
                 Console.WriteLine($"Cancellation Fee: ${cancellationFee}");
 
                 // Proceed to payment
-                MakePayment(cancellationFee); // janani part
+                SelectPayment(cancellationFee); // janani part
             }
 
             // Calculate Rental Fee - janani part
@@ -543,7 +564,7 @@ namespace FlexWheels
             }
 
             // Make Payment - janani part
-            static void MakePayment(double amount)
+            static void SelectPayment(double amount)
             {
                 Console.WriteLine("Please select a payment method: 1. NETS 2. Credit Card 3. Digital Wallet.");
                 int paymentMethod = int.Parse(Console.ReadLine());

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexWheels
 {
-    internal class Renter
+    internal class Renter : Account
     {
         private DateTime dateOfBirth;
         private string drivingLicenseNumber;
@@ -74,7 +74,7 @@ namespace FlexWheels
 
         public Renter() { }
 
-        public Renter(DateTime dob, string dln, DateTime dlexp, string ic, string addr, bool valid, DateTime validDate, int id, List<Booking> b)
+        public Renter(string n, string cn, int i, string e, string pass, DateTime dob, string dln, DateTime dlexp, string ic, string addr, bool valid, DateTime validDate, int id, List<Booking> b): base(n, cn, i, e, pass)
         {
             dateOfBirth = dob;
             drivingLicenseNumber = dln;
@@ -89,7 +89,7 @@ namespace FlexWheels
 
         public override string ToString()
         {
-            return "Date Of Birth: " + DateOfBirth.Day + "/" + DateOfBirth.Month + "/" + DateOfBirth.Year + "\nDriving License Number: " + DrivingLicenseNumber + "\nDriving License Expiry Date: " + DrivingLicenseExpiryDate.Day + "/" + DrivingLicenseExpiryDate.Month + "/" + DrivingLicenseExpiryDate.Year + "\nNRIC: " + Nric + "\nAddress: " + Address + "\nValidated Driving License: " + (ValidatedDrivingLicense ? "Yes" : "No") + "\nValidation Date: " + ValidationDate.Day + "/" + ValidationDate.Month + "/" + ValidationDate.Year + "\nRenter Id: " + RenterId + "\nNumber Of Bookings: " + Bookings.Count;
+            return base.ToString() + "\nDate Of Birth: " + DateOfBirth.Day + "/" + DateOfBirth.Month + "/" + DateOfBirth.Year + "\nDriving License Number: " + DrivingLicenseNumber + "\nDriving License Expiry Date: " + DrivingLicenseExpiryDate.Day + "/" + DrivingLicenseExpiryDate.Month + "/" + DrivingLicenseExpiryDate.Year + "\nNRIC: " + Nric + "\nAddress: " + Address + "\nValidated Driving License: " + (ValidatedDrivingLicense ? "Yes" : "No") + "\nValidation Date: " + ValidationDate.Day + "/" + ValidationDate.Month + "/" + ValidationDate.Year + "\nRenter Id: " + RenterId + "\nNumber Of Bookings: " + Bookings.Count;
         }
     }
 }

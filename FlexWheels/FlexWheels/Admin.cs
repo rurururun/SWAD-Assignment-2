@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlexWheels
 {
-	internal class Admin
+	internal class Admin : Account
 	{
 		
         private string adminId;
@@ -35,16 +35,16 @@ namespace FlexWheels
 		public Admin() { }
 
 		// Parameterized constructor
-		public Admin(string adminId, string role, DateTime lastActivityDate)
+		public Admin(string n, string cn, int i, string e, string pass, string id, string r, DateTime lad): base(n, cn, i, e, pass)
 		{
-			this.adminId = adminId;
-			this.role = role;
-			this.lastActivityDate = lastActivityDate;
+			adminId = id;
+			role = r;
+			lastActivityDate = lad;
 		}
 
 		public override string ToString()
 		{
-			return $"Admin ID: {adminId}, Role: {role}, Last Activity Date: {lastActivityDate.ToShortDateString()}";
+			return base.ToString() + "\n" + $"Admin ID: {AdminId}, Role: {Role}, Last Activity Date: {LastActivityDate.ToShortDateString()}";
 		}
 	}
 }

@@ -51,7 +51,7 @@ namespace FlexWheels
             set { exclusiveOffers = value; }
         }
 
-        public Prime(DateTime dob, string dln, DateTime dlexp, string ic, string addr, bool valid, DateTime validDate, int rid, List<Booking> b, string mid, DateTime msd, DateTime med, double mra, double dr, List<string> eo): base(dob, dln, dlexp, ic, addr, valid, validDate, rid, b)
+        public Prime(string n, string cn, int i, string e, string pass, DateTime dob, string dln, DateTime dlexp, string ic, string addr, bool valid, DateTime validDate, int id, List<Booking> b, string mid, DateTime msd, DateTime med, double mra, double dr, List<string> eo): base(n, cn, i, e, pass, dob, dln, dlexp, ic, addr, valid, validDate, id, b)
         {
             membershipId = mid;
             membershipStartDate = msd;
