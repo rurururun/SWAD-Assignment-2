@@ -61,7 +61,7 @@ namespace FlexWheels
             exclusiveOffers = eo;
         }
 
-        public string printExclusiveOffers(List<string> eo)
+        public string PrintExclusiveOffers(List<string> eo)
         {
             string exclusiveOffersToBePrinted = "";
 
